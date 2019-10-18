@@ -139,7 +139,7 @@ def hough_lines(img, rho, theta, threshold, min_line_len, max_line_gap, slope_th
     """
     lines = cv2.HoughLinesP(img, rho, theta, threshold, np.array([]), minLineLength=min_line_len, maxLineGap=max_line_gap)
     line_img = np.zeros((img.shape[0], img.shape[1], 3), dtype=np.uint8)
-    merged_lines = draw_lines(line_img, lines, slope_thd=slope_thd, thickness=10)
+    merged_lines = draw_lines(line_img, lines, slope_thd=slope_thd, thickness=3)
     return line_img, merged_lines
 
 def weighted_img(img, initial_img, α=0.8, β=1., γ=0.):
@@ -164,7 +164,7 @@ def simple_line_finding(image):
     v_x0 = 0.1
     v_x1a = 0.472
     v_x1b = 0.528
-    v_y1 = 0.597
+    v_y1 = 0.60
     v_x2 = 0.94
     hough_rho = 1
     hough_theta = 2.8/180.
