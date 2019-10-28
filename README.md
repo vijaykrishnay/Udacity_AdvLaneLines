@@ -71,7 +71,7 @@ Now let's look at each step in detail
 ![undistort_warp_grad_color_filt](doc_images/undistort_warp_grad_color_filt.png "Gradient filter, color filters, undistorted, unwarped image")
 
 **2.3 Main - Find lane pixels & Fit polynomials**</br>
-- Compute histogram of the bottom half of the image. Find left, right lane peaks from histogram and move up the window with a set margin to identify lane pixels per window. Finally, use all the lane pixels to fit a 2nd degree polynomial as shown below:
+- Compute histogram of the bottom half of the image. Find left, right lane peaks from histogram and move up the window with a set margin to identify lane pixels per window. Finally, use all the lane pixels to fit a 2nd degree polynomial as shown below:</br>
 ![lane_polynomials](doc_images/lane_polynomials.png "Lanes with polynomial fit")
 
 **Warp lanes back and overplot on raw image. The above test image with detected lane is shown below.**</br>
