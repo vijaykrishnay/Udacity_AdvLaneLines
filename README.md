@@ -33,10 +33,10 @@ Now let's look at each step in detail
 
 *Note: Once the lane lines were identified, 4% to 94% of the lane lines were used for the transformation. Using the whole lanes results in exaggerated warping and trimming the lines too much results in shorter lanes. This appears to be the sewwt spot for this camera setup.*
 
-**Lane Lines before transform (using simple lane finding)**
+**Lane Lines before transform (using simple lane finding)**</br>
 ![simple_lanes](doc_images/simple_lanes.png "Lane lines using simple lane finding")
 
-**Original Image (left), Undistorted Warped Image (right)**
+**Original Image (left), Undistorted Warped Image (right)**</br>
 ![simple_lanes](doc_images/perspective_transform.png "Lane lines before and after perspective transform")
 
 **2.1 Main - Gradient Filter, Color Filters**
@@ -45,44 +45,43 @@ Now let's look at each step in detail
 - Calculate gradient along x. Normaize and filter
 - Apply s, l - channel filters
 
-**Image before gradient, color filters**
+**Image before gradient, color filters**</br>
 ![grad_color_filt_before](doc_images/grad_color_filt_before.png "Image before gradient, color filters")
 
-**L-Channel with yellow lane**
+**L-Channel with yellow lane**</br>
 ![l_channel_before](doc_images/l_channel_before.png "L-Channel with yellow lane")
 
-**Yellow pixels**   
+**Yellow pixels**</br>
 ![yellow_pixels](doc_images/yellow_pixels.png "Yellow pixels")
 
-**L-Channel with yellow replaced**
+**L-Channel with yellow replaced**</br>
 ![l_channel_after](doc_images/l_channel_after.png "L-Channel with yellow replaced")
 
-**S-Channel**   
+**S-Channel**</br>
 ![s_channel](doc_images/s_channel.png "S-Channel")
 
-**Gradient, color filters applied. Lane lines are clear and distinct.**
+**Gradient, color filters applied. Lane lines are clear and distinct.**</br>
 ![grad_color_filt_after](doc_images/grad_color_filt_after.png "Gradient, color filters applied")
 
-**2.2 Main - Undistort, Unwarp**
+**2.2 Main - Undistort, Unwarp**</br>
 - Load distortion, warp matrices from pkl file and apply to images. See example of original image and undistorted, unwarped image below:
 ![undistort_warp_main](doc_images/undistort_warp_main.png "Original (left), Undistorted, Unwarped(right)")
 
-**Gradient filter, color filters, undistorted, unwarped image**
+**Gradient filter, color filters, undistorted, unwarped image**</br>
 ![undistort_warp_grad_color_filt](doc_images/undistort_warp_grad_color_filt.png "Gradient filter, color filters, undistorted, unwarped image")
 
-**2.3 Main - Find lane pixels & Fit polynomials**
+**2.3 Main - Find lane pixels & Fit polynomials**</br>
 - Compute histogram of the bottom half of the image. Find left, right lane peaks from histogram and move up the window with a set margin to identify lane pixels per window. Finally, use all the lane pixels to fit a 2nd degree polynomial as shown below:
 ![lane_polynomials](doc_images/lane_polynomials.png "Lanes with polynomial fit")
 
-**Warp lanes back and overplot on raw image. The above test image with detected lane is shown below.**
+**Warp lanes back and overplot on raw image. The above test image with detected lane is shown below.**</br>
 ![test_image_wlane](doc_images/test_image_wlane.png "Test image with detected lane")
 
-**2.4 Main - Compute radius of curvatures**
+**2.4 Main - Compute radius of curvatures**</br>
 - Radius of curvate is calculated using the formula below:
 
-**R<sub>curve</sub> = ( (1 + (2Ay + B)<sup>2</sup>) <sup>3/2</sup>) / (2|A|)**
-
-where **f(y)=Ay<sup>2</sup> + By + C** defines the equation of the polynomial.
+**R<sub>curve</sub> = ( (1 + (2Ay + B)<sup>2</sup>) <sup>3/2</sup>) / (2|A|)**</br>
+where **f(y)=Ay<sup>2</sup> + By + C** is the equation of the polynomial.
 
 **2.5 Main - Verify lanes & Create best fit using hisory**
 - Once we identify lane, this information can be used to limit the region in which to search for lane pixels. A margin of 100 pixels surrounding previous lane lines appears to work best.
@@ -97,7 +96,7 @@ where **f(y)=Ay<sup>2</sup> + By + C** defines the equation of the polynomial.
 - Best fit lanes from previous step are overlayed on the raw image.
 - Mean radius and offset from center are calculated and printed on each frame.
 
-**TEST IMAGES**
+**TEST IMAGES**</br>
 ![](output_images/straight_lines1.jpg)
 ![](output_images/straight_lines2.jpg)
 ![](output_images/test1.jpg)
