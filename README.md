@@ -14,7 +14,7 @@ Advanced lane finding project has been broken down into steps shown below:
     - Gradient, color filters
     - Undistort, unwarp
     - Find lane pixels & Fit lane polynomials
-    - Compute radius of curvatures
+    - Compute radius of curvatures, lane width, lane position
     - Verify lanes & Create best fit using hisory
     - Draw best fit lanes
 
@@ -77,11 +77,13 @@ Now let's look at each step in detail
 **Warp lanes back and overplot on raw image. The above test image with detected lane is shown below.**</br>
 ![test_image_wlane](doc_images/test_image_wlane.png "Test image with detected lane")
 
-**2.4 Main - Compute radius of curvatures**</br>
-- Radius of curvate is calculated using the formula below:
-
-**R<sub>curve</sub> = ( (1 + (2Ay + B)<sup>2</sup>) <sup>3/2</sup>) / (2|A|)**</br>
-where **f(y)=Ay<sup>2</sup> + By + C** is the equation of the polynomial.
+**2.4 Main - Compute radius of curvatures, Lane Width, Lane Position**</br>
+- Radius of curvate is calculated using the formula below:</br>
+    **R<sub>curve</sub> = ( (1 + (2Ay + B)<sup>2</sup>) <sup>3/2</sup>) / (2|A|)**</br>
+    where **f(y)=Ay<sup>2</sup> + By + C** is the equation of the polynomial.
+    *Note: The curve fits need to be transformed from pixels to m.
+- Lane width is computed as a difference between left, right lane fit x values (scaled to m).
+- Lane center is computed as average between left, right. The offset between the base of lane center and center of image (along x) is the position of the vehicle w.r.t the lane.
 
 **2.5 Main - Verify lanes & Create best fit using hisory**
 - Once we identify lane, this information can be used to limit the region in which to search for lane pixels. A margin of 100 pixels surrounding previous lane lines appears to work best.
@@ -109,3 +111,9 @@ where **f(y)=Ay<sup>2</sup> + By + C** is the equation of the polynomial.
 [**PROJECT VIDEO OUT**](project_video_out.mp4)
 
 [**CHALLENGE VIDEO OUT**](challenge_video_out.mp4)
+
+**DISCUSSION**
+- Lane detection via this pipeline is very sensitive to the perspective transform (warp) matrix. Manually picking the lane end points could result in a slightly better result.
+- Radius of curvature is very sensitive to scaling from pixels to m. Accurate measurement of lane width and identified lane length will improve the accuracy further.
+- Second order polynomial may not capture windy roads (e.g., harder_challenge_video.mp4) well. Experimenting with 3rd order polynomial would be interesting.
+- It also may be worth exploring varying length of history based on current radius of curvature.
